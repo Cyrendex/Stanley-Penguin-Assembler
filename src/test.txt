@@ -1,0 +1,16 @@
+; Init
+                JMP start
+num:            0
+
+; Loop
+start:          LOAD num
+                WRITE 0x8
+                ADD 1
+		        STORE num
+
+                ; Check if we reached 256
+                SUB 256
+                JZ end
+                JMP start
+
+end:            JMP end
