@@ -42,19 +42,18 @@ if __name__ == '__main__':
 def get_labels(filename):
     index_counter = 0
     try:
-        file = open(filename, 'r')
+        with open(filename, 'r') as file:
+            for line in file:
+                if line.strip(): # Skip empty lines.
+                    continue
+                tokens = line.split() # Split line into tokens
+                first_element = tokens[0] # Get the first token
+                if first_element.startswith('.'): # Is the first element a label?
+                    label_addresses.update({first_element[:-1], index_counter})
+                index_counter += 1 
+            file.close()
     except IOError:
         print(IOError)
-
-    for line in file:
-        if line.strip(): # Skip empty lines.
-            continue
-        tokens = line.split() # Split line into tokens
-        first_element = tokens[0] # Get the first token
-        if first_element.startswith('.'): # Is the first element a label?
-            label_addresses.update({first_element[:-1], index_counter})
-        index_counter += 1 
-    file.close()
 
 
 
